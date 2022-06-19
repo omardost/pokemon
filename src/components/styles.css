@@ -3,3 +3,15 @@
     flex-direction: 'column';
     justify-content: 'space-evenly'
 }
+
+.footer {
+    display: 'flex !important';
+    flex-direction: row;
+    justify-content: 'space-between'
+}
+
+.bodyHome {
+    display: 'flex';
+    flex-direction: 'column';
+    justify-content: 'center'
+}

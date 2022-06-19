@@ -1,9 +1,9 @@
 import Pokemon from '../interfaces/pokemon';
 import './styles.css';
 
-export const Card = (props:Pokemon) => {
+export const BigCard = (props:Pokemon) => {
     const cardTop = {
-        height: '300px',
+        height: '400px',
         width: '250px',
         margin: '20px',
         border: '1px solid',
