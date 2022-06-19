@@ -8,51 +8,85 @@ import { Footer } from './footer';
 
 export const Home = () => {
     const [pokemon, setPokemon] = useState<Pokemon>({});
+    const [pokemonList, setPokemonList] = useState<(Pokemon|undefined)[]>([]);
     const [paginationPokemon, setPaginationPokemon] = useState<PaginationPokemon>({});
-
-    const pokemonList: Pokemon[] = [
-        { name: 'hola', id: 1 },
-        { name: 'hola2', id: 2 }
-    ];
+    const [inputText, setInputText] = useState<string>('');
 
     const apiPokemonService = new ApiPokemonServices();
 
-    const findPokemon = async () => {
-        const findPokemon = await apiPokemonService.findPokemon('ditto');
+    const findPokemon = async (event: any) => {
+        setInputText(event.target.value);
+        const findPokemon = await apiPokemonService.findPokemon(event.target.value);
         setPokemon(findPokemon);
-        console.log(findPokemon);
+        console.log(findPokemon, 'buscar');
 
     }
 
     const pagination = async () => {
-
         const paginationPokemon = await apiPokemonService.findPokemonList(4, 1);
-        setPaginationPokemon(paginationPokemon);
+
+        if (paginationPokemon.results) {
+
+            const dataResult = paginationPokemon.results.map(async (pokemon) => {
+                if (pokemon.url) {
+                    return await apiPokemonService.findPokemonData(pokemon.url);
+                }
+            });
+
+            const results = await Promise.all(dataResult);
+
+            if(results !== undefined){
+                setPokemonList(results);
+            }
+
+        }
+
 
     }
 
     useEffect(
         () => {
-            if (Object.keys(paginationPokemon).length === 0) {
-                console.log('inicio');
+            if (pokemonList.length === 0) {
+                console.log('inicio', pokemonList.length);
                 pagination();
             }
         }
     );
 
     return (
-        <>
-        
+
         <div className='bodyHome'>
-            {(paginationPokemon.results) ?
-                paginationPokemon.results.map((obj, idx) => {
-                    return (
-                        <Card key={idx} name={obj.name} id={idx} />
-                    )
-                }) : 'Vacío'
-            }
-            <Footer/>
+            <div style={{ width: '100%' }}>
+                <input type="text" onChange={pagination} />
+            </div>
+            <div className='bodyCenter'>
+
+                <div style={{ width: '50%', display: 'flex', 'flexWrap': 'wrap' }}>
+
+                    {
+                        (inputText) === '' ?
+
+                            (pokemonList) ?
+                                pokemonList.map((obj, idx) => {
+                                    if(obj)
+                                    return (
+                                        <Card key={idx} name={obj.name} id={idx} 
+                                        sprites={obj.sprites} />
+                                    )
+                                }) : 'Vacío'
+
+                            :
+                            <Card name={pokemon.name} />
+                    }
+                </div>
+
+                <div style={{ width: '50%' }}>
+                    big card
+                </div>
+            </div>
+
+            <Footer />
         </div>
-        </>
+
     );
 }

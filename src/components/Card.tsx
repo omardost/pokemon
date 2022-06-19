@@ -1,10 +1,10 @@
 import Pokemon from '../interfaces/pokemon';
 import './styles.css';
 
-export const Card = (props:Pokemon) => {
+export const Card = (props: Pokemon) => {
     const cardTop = {
-        height: '300px',
-        width: '250px',
+        height: '200px',
+        width: '150px',
         margin: '20px',
         border: '1px solid',
         borderRadius: '10px'
@@ -13,7 +13,13 @@ export const Card = (props:Pokemon) => {
     return (
         <div style={cardTop}>
             <div className='cardBody'>
-                <div>imagen</div>
+                <div>{
+                    (props.sprites) ?
+                        <img src={props.sprites.back_default} alt="" 
+                        className='sprite'/>
+                        : ''
+
+                }</div>
                 <div>{props.name}</div>
             </div>
         </div>

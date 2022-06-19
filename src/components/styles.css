@@ -1,17 +1,31 @@
 .cardBody {
-    display: 'flex';
-    flex-direction: 'column';
-    justify-content: 'space-evenly'
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .footer {
-    display: 'flex !important';
+    display: flex !important;
     flex-direction: row;
-    justify-content: 'space-between'
+    justify-content: space-between;
 }
 
 .bodyHome {
-    display: 'flex';
-    flex-direction: 'column';
-    justify-content: 'center'
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 800px;
+}
+
+.bodyCenter {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.sprite {
+    width: 100px;
+    height: 100px;
 }

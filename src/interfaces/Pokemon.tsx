@@ -1,6 +1,9 @@
+import Sprites from "./sprites";
+
 interface Pokemon {
    name?: string,
-   id?: number
+   id?: number,
+   sprites?: Sprites
 
 };
 
