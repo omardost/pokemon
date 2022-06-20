@@ -3,11 +3,11 @@ import './styles.css';
 
 export const Card = (props: Pokemon) => {
     const cardTop = {
-        height: '200px',
         width: '150px',
         margin: '20px',
         border: '1px solid',
-        borderRadius: '10px'
+        borderRadius: '10px',
+        backgroundColor: '#0088ff'
     };
 
     return (

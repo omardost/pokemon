@@ -74,8 +74,9 @@ export const Home = () => {
     return (
 
         <div className='bodyHome'>
-            <div style={{ width: '100%' }}>
-                <input type="text" onChange={findPokemon} />
+            <div style={{ width: '100%', justifyContent: 'center' }}><strong><h3>Listado de Pokemon</h3></strong></div>
+            <div style={{ width: '100%', margin: '10px' }}>
+                <input type="text" onChange={findPokemon} placeholder="Nombre de pokemon" style={{ height: "30px" }} />
             </div>
             <div className='bodyCenter'>
 
@@ -94,10 +95,13 @@ export const Home = () => {
                                     )
                             })
                             :
-                            <div onClick={() => changePokemon(pokemon)}>
-                                <Card key={pokemon.id} name={pokemon.name} id={pokemon.id}
-                                    sprites={pokemon.sprites} />
-                            </div>
+
+                            (Object.keys(pokemon).length > 0) ?
+                                <div onClick={() => changePokemon(pokemon)}>
+                                    <Card key={pokemon.id} name={pokemon.name} id={pokemon.id}
+                                        sprites={pokemon.sprites} />
+                                </div>
+                                : 'Sin resultado'
                     }
                 </div>
 
@@ -106,8 +110,8 @@ export const Home = () => {
                     {
                         (Object.keys(dataPokemon).length > 0) ?
                             <BigCard key={dataPokemon.id} name={dataPokemon.name} id={dataPokemon.id}
-                                sprites={dataPokemon.sprites} types={dataPokemon.types} weight={dataPokemon.weight} 
-                                abilities={dataPokemon.abilities}/>
+                                sprites={dataPokemon.sprites} types={dataPokemon.types} weight={dataPokemon.weight}
+                                abilities={dataPokemon.abilities} />
                             : ''
                     }
 

@@ -3,7 +3,10 @@ export const Footer = (props: any) => {
 
     const before = () => {
         const pageCurrent = page - 1;
-        setPage(pageCurrent);
+        if (pageCurrent >= 0) {
+
+            setPage(pageCurrent);
+        }
     };
 
     const later = () => {
@@ -15,11 +18,11 @@ export const Footer = (props: any) => {
         <div className="footer">
             <div style={{ display: 'flex' }}>
 
-                <button onClick={before}>antes</button>
+                <button onClick={before}>Anterior</button>
             </div>
             <div style={{ display: 'flex' }}>
 
-                <button onClick={later}>despues</button>
+                <button onClick={later}>Siguiente</button>
             </div>
         </div>
     );
