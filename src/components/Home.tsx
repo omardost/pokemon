@@ -71,7 +71,7 @@ export const Home = () => {
     return (
 
         <div className='bodyHome'>
-            <div style={{ width: '100%', justifyContent: 'center' }}><strong><h3>Listado de Pokemon</h3></strong></div>
+
             <div style={{ width: '100%', margin: '10px' }}>
                 <input type="text" onChange={findPokemon} placeholder="Nombre de pokemon" style={{ height: "30px" }} />
             </div>
