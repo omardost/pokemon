@@ -5,9 +5,11 @@ import { useState, useEffect } from 'react';
 import PaginationPokemon from '../interfaces/pagination-pokemon';
 import ResultPagination from '../interfaces/result-pagination';
 import { Footer } from './footer';
+import { BigCard } from './big-card';
 
 export const Home = () => {
     const [pokemon, setPokemon] = useState<Pokemon>({});
+    const [dataPokemon, setDataPokemon] = useState<Pokemon>({});
     const [page, setPage] = useState<number>(0);
     const [pokemonList, setPokemonList] = useState<(Pokemon | undefined)[]>([]);
     const [paginationPokemon, setPaginationPokemon] = useState<PaginationPokemon>({});
@@ -19,6 +21,7 @@ export const Home = () => {
         try {
             setInputText(event.target.value);
             const findPokemon = await apiPokemonService.findPokemon(event.target.value);
+            console.log(findPokemon);
             setPokemon(findPokemon);
         } catch (error) {
         }
@@ -62,6 +65,12 @@ export const Home = () => {
         pagination();
     }, [page]);
 
+    const changePokemon = (obj: Pokemon) => {
+        console.log('change', obj);
+
+        setDataPokemon(obj);
+    };
+
     return (
 
         <div className='bodyHome'>
@@ -74,24 +83,34 @@ export const Home = () => {
 
                     {
                         (inputText) === '' ?
+                            pokemonList?.map((obj, idx) => {
+                                if (obj)
+                                    return (
+                                        <div key={idx} onClick={() => changePokemon(obj)}>
 
-                            (pokemonList) ?
-                                pokemonList.map((obj, idx) => {
-                                    if (obj)
-                                        return (
                                             <Card key={idx} name={obj.name} id={obj.id}
                                                 sprites={obj.sprites} />
-                                        )
-                                }) : 'Vacío'
-
+                                        </div>
+                                    )
+                            })
                             :
-                            <Card key={pokemon.id} name={pokemon.name} id={pokemon.id}
-                                sprites={pokemon.sprites} />
+                            <div onClick={() => changePokemon(pokemon)}>
+                                <Card key={pokemon.id} name={pokemon.name} id={pokemon.id}
+                                    sprites={pokemon.sprites} />
+                            </div>
                     }
                 </div>
 
                 <div style={{ width: '50%' }}>
-                    big card
+
+                    {
+                        (Object.keys(dataPokemon).length > 0) ?
+                            <BigCard key={dataPokemon.id} name={dataPokemon.name} id={dataPokemon.id}
+                                sprites={dataPokemon.sprites} types={dataPokemon.types} weight={dataPokemon.weight} 
+                                abilities={dataPokemon.abilities}/>
+                            : ''
+                    }
+
                 </div>
             </div>
 

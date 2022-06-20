@@ -4,6 +4,16 @@
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 8px;
+    cursor: pointer;
+}
+
+.bigCardBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    width: 100%;
 }
 
 .footer {
@@ -29,4 +39,18 @@
 .sprite {
     width: 100px;
     height: 100px;
+}
+
+.bigSprite {
+    width: 150px;
+    height: 150px;
+}
+
+.spriteList {
+    width: 80px;
+    height: 80px;
+}
+
+.spriteListBody {
+    flex-direction: row;
 }

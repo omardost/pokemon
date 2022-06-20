@@ -1,10 +1,9 @@
 import Pokemon from '../interfaces/pokemon';
 import './styles.css';
 
-export const BigCard = (props:Pokemon) => {
+export const BigCard = (props: Pokemon) => {
     const cardTop = {
-        height: '400px',
-        width: '250px',
+        width: '100%',
         margin: '20px',
         border: '1px solid',
         borderRadius: '10px'
@@ -12,10 +11,56 @@ export const BigCard = (props:Pokemon) => {
 
     return (
         <div style={cardTop}>
-            <div className='cardBody'>
-                <div>imagen</div>
-                <div>{props.name}</div>
+            <div className='bigCardBody'>
+                <div style={{ width: '100%' }}># {props.id}</div>
+                <div style={{ width: '100%', justifyContent: 'center' }}>
+
+                <img src={props.sprites?.front_default} alt=""
+                    className='bigSprite' />
+
+
+            </div>
+            <div><strong>{props.name}</strong></div>
+            <div style={{ marginTop: '5px' }}><strong>Types</strong></div>
+            <div>
+                {
+                    props.types?.map((obj, idx) => {
+                        if (obj)
+                            return (
+
+                                <div key={idx}>{obj.type?.name}&nbsp; </div>
+
+                            )
+                    })
+                }
+            </div>
+            <div><strong>Weight</strong></div>
+            <div>{props.weight} kg</div>
+            <div><strong>Sprites</strong></div>
+            <div className='spriteListBody'>
+                <img src={props.sprites?.front_default} alt=""
+                    className='spriteList' />
+                <img src={props.sprites?.front_shiny} alt=""
+                    className='spriteList' />
+                <img src={props.sprites?.back_default} alt=""
+                    className='spriteList' />
+                <img src={props.sprites?.back_shiny} alt=""
+                    className='spriteList' />
+            </div>
+            <div><strong>Movements</strong></div>
+            <div>
+                {
+                    props.abilities?.map((obj, idx) => {
+                        if (obj)
+                            return (
+
+                                <div key={idx}>{obj.ability?.name}&nbsp; </div>
+
+                            )
+                    })
+                }
             </div>
         </div>
+        </div >
     );
 }
