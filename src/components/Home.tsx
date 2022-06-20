@@ -2,8 +2,6 @@ import Pokemon from '../interfaces/pokemon';
 import { Card } from './card';
 import { ApiPokemonServices } from '../services/api-pokemon-services';
 import { useState, useEffect } from 'react';
-import PaginationPokemon from '../interfaces/pagination-pokemon';
-import ResultPagination from '../interfaces/result-pagination';
 import { Footer } from './footer';
 import { BigCard } from './big-card';
 
@@ -12,7 +10,6 @@ export const Home = () => {
     const [dataPokemon, setDataPokemon] = useState<Pokemon>({});
     const [page, setPage] = useState<number>(0);
     const [pokemonList, setPokemonList] = useState<(Pokemon | undefined)[]>([]);
-    const [paginationPokemon, setPaginationPokemon] = useState<PaginationPokemon>({});
     const [inputText, setInputText] = useState<string>('');
 
     const apiPokemonService = new ApiPokemonServices();

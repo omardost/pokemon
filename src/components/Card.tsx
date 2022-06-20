@@ -3,6 +3,7 @@ import './styles.css';
 
 export const Card = (props: Pokemon) => {
     const cardTop = {
+        height: '209px',
         width: '150px',
         margin: '20px',
         border: '1px solid',
