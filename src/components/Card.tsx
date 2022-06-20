@@ -13,9 +13,10 @@ export const Card = (props: Pokemon) => {
     return (
         <div style={cardTop}>
             <div className='cardBody'>
+                <div># {props.id}</div>
                 <div>{
                     (props.sprites) ?
-                        <img src={props.sprites.back_default} alt="" 
+                        <img src={props.sprites.front_default} alt="" 
                         className='sprite'/>
                         : ''
 

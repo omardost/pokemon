@@ -8,22 +8,25 @@ import { Footer } from './footer';
 
 export const Home = () => {
     const [pokemon, setPokemon] = useState<Pokemon>({});
-    const [pokemonList, setPokemonList] = useState<(Pokemon|undefined)[]>([]);
+    const [page, setPage] = useState<number>(0);
+    const [pokemonList, setPokemonList] = useState<(Pokemon | undefined)[]>([]);
     const [paginationPokemon, setPaginationPokemon] = useState<PaginationPokemon>({});
     const [inputText, setInputText] = useState<string>('');
 
     const apiPokemonService = new ApiPokemonServices();
 
     const findPokemon = async (event: any) => {
-        setInputText(event.target.value);
-        const findPokemon = await apiPokemonService.findPokemon(event.target.value);
-        setPokemon(findPokemon);
-        console.log(findPokemon, 'buscar');
-
+        try {
+            setInputText(event.target.value);
+            const findPokemon = await apiPokemonService.findPokemon(event.target.value);
+            setPokemon(findPokemon);
+        } catch (error) {
+        }
     }
 
     const pagination = async () => {
-        const paginationPokemon = await apiPokemonService.findPokemonList(4, 1);
+        const pageCurrent = 4 * page;
+        const paginationPokemon = await apiPokemonService.findPokemonList(4, pageCurrent);
 
         if (paginationPokemon.results) {
 
@@ -34,8 +37,10 @@ export const Home = () => {
             });
 
             const results = await Promise.all(dataResult);
+            console.log(results);
 
-            if(results !== undefined){
+
+            if (results !== undefined) {
                 setPokemonList(results);
             }
 
@@ -53,11 +58,15 @@ export const Home = () => {
         }
     );
 
+    useEffect(() => {
+        pagination();
+    }, [page]);
+
     return (
 
         <div className='bodyHome'>
             <div style={{ width: '100%' }}>
-                <input type="text" onChange={pagination} />
+                <input type="text" onChange={findPokemon} />
             </div>
             <div className='bodyCenter'>
 
@@ -68,15 +77,16 @@ export const Home = () => {
 
                             (pokemonList) ?
                                 pokemonList.map((obj, idx) => {
-                                    if(obj)
-                                    return (
-                                        <Card key={idx} name={obj.name} id={idx} 
-                                        sprites={obj.sprites} />
-                                    )
+                                    if (obj)
+                                        return (
+                                            <Card key={idx} name={obj.name} id={obj.id}
+                                                sprites={obj.sprites} />
+                                        )
                                 }) : 'Vacío'
 
                             :
-                            <Card name={pokemon.name} />
+                            <Card key={pokemon.id} name={pokemon.name} id={pokemon.id}
+                                sprites={pokemon.sprites} />
                     }
                 </div>
 
@@ -85,7 +95,7 @@ export const Home = () => {
                 </div>
             </div>
 
-            <Footer />
+            <Footer setPage={setPage} page={page} />
         </div>
 
     );
